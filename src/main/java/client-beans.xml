@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+	<aop:aspectj-autoproxy/>
+    <bean class="fr.istic.tp5taa.aspect.LogAspect">
+    </bean>
+	<bean id="aticleImplEau" class="fr.istic.tp5taa.article.impl.Article">
+		<property name="name" value="Eau" />
+		<property name="price" value="10" />
+	</bean>
+	
+	<bean id="aticleImplBiere" class="fr.istic.tp5taa.article.impl.Article">
+		<property name="name" value="Biere" />
+		<property name="price" value="20" />
+	</bean>
+	
+
+	<bean id="providerImpl" class="fr.istic.tp5taa.provider.impl.Provider">
+		<property name="articlesQuantites">
+			<map>
+				<entry key-ref="aticleImplEau" value="100"/>
+				<entry key-ref="aticleImplBiere" value="40"/>
+			</map>
+		</property>
+	</bean>
+	<bean id="storeImpl" class="fr.istic.tp5taa.store.impl.Store">
+		<property name="provider" ref="providerImpl"/>
+	</bean>
+	
+	
+	<bean id="accountImpl1" class="fr.istic.tp5taa.bank.account.impl.Account">
+		<property name="money" value="100"/>
+	</bean>
+	<bean id="accountImpl2" class="fr.istic.tp5taa.bank.account.impl.Account">
+		<property name="money" value="100"/>
+	</bean>
+	<bean id="accountImpl3" class="fr.istic.tp5taa.bank.account.impl.Account">
+		<property name="money" value="100"/>
+	</bean>
+	
+	
+	<bean id="clientImpl1" class="fr.istic.tp5taa.client.impl.Client">
+		<property name="justHaveALook" ref="storeImpl"/>
+		<property name="lane" ref="storeImpl"/>
+		<property name="id" value="1"/>
+		<property name="articleWanted" ref="aticleImplBiere"/>
+		<property name="account" ref="accountImpl1"/>
+	</bean>
+	<bean id="clientImpl2" class="fr.istic.tp5taa.client.impl.Client">
+		<property name="justHaveALook" ref="storeImpl"/>
+		<property name="lane" ref="storeImpl"/>
+		<property name="id" value="2"/>
+		<property name="articleWanted" ref="aticleImplBiere"/>
+		<property name="account" ref="accountImpl2"/>
+	</bean>
+	<bean id="clientImpl3" class="fr.istic.tp5taa.client.impl.Client">
+		<property name="justHaveALook" ref="storeImpl"/>
+		<property name="lane" ref="storeImpl"/>
+		<property name="id" value="3"/>
+		<property name="articleWanted" ref="aticleImplEau"/>
+		<property name="account" ref="accountImpl3"/>
+	</bean>
+</beans>
+<!-- END SNIPPET: beans -->
